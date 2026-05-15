@@ -1,0 +1,68 @@
+---
+test_name: GET /api/produtos retorna lista com estrutura correta
+
+includes:
+  - !include common.yaml
+
+stages:
+  - name: Listar produtos disponíveis
+    request:
+      url: "{tavern.env_vars.BASE_URL}/api/produtos"
+      method: GET
+    response:
+      status_code: 200
+      verify_response_with:
+        - function: tavern.helpers:validate_content_type
+          extra_kwargs:
+            content_type: "application/json"
+      json:
+        - nome: !anystr
+          preco: !anyfloat
+          estoque: !anyint
+
+---
+test_name: POST /api/comprar retorna valor_pago no corpo
+
+includes:
+  - !include common.yaml
+
+stages:
+  - name: Compra de teclado sem cupom
+    request:
+      url: "{tavern.env_vars.BASE_URL}/api/comprar"
+      method: POST
+      headers:
+        content-type: application/json
+      json:
+        produto: teclado
+        cartao: "1234 5678 9012 3456"
+        cupom: ""
+    response:
+      status_code: 200
+      json:
+        status: sucesso
+        mensagem: !anystr
+        valor_pago: !anyfloat
+
+---
+test_name: POST /api/comprar com GEEK20 retorna valor com desconto
+
+includes:
+  - !include common.yaml
+
+stages:
+  - name: Compra com cupom de desconto
+    request:
+      url: "{tavern.env_vars.BASE_URL}/api/comprar"
+      method: POST
+      headers:
+        content-type: application/json
+      json:
+        produto: teclado
+        cartao: "1234 5678 9012 3456"
+        cupom: GEEK20
+    response:
+      status_code: 200
+      json:
+        status: sucesso
+        valor_pago: 160.0

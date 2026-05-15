@@ -1,0 +1,6 @@
+---
+name: Configuração base do Tavern
+description: URL base do servidor para os testes de contrato
+
+variables:
+  BASE_URL: "http://localhost:8000"
