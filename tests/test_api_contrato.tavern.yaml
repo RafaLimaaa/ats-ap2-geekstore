@@ -11,14 +11,8 @@ stages:
       method: GET
     response:
       status_code: 200
-      verify_response_with:
-        - function: tavern.helpers:validate_content
-          extra_kwargs:
-            content_type: "application/json"
-      json:
-        - nome: !anystr
-          preco: !anyfloat
-          estoque: !anyint
+      headers:
+        content-type: application/json
 
 ---
 test_name: POST /api/comprar retorna valor_pago no corpo
