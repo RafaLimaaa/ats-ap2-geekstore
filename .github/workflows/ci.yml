@@ -40,6 +40,9 @@ jobs:
             --cov-fail-under=90 \
             -v
 
+      - name: Popular banco para os testes Tavern
+        run: python seed_db.py
+
       - name: Run Tavern contract tests
         run: pytest tests/test_api_contrato.tavern.yaml -v
 
