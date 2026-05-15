@@ -12,7 +12,7 @@ stages:
     response:
       status_code: 200
       verify_response_with:
-        - function: tavern.helpers:validate_content_type
+        - function: tavern.helpers:validate_content
           extra_kwargs:
             content_type: "application/json"
       json:
@@ -65,4 +65,5 @@ stages:
       status_code: 200
       json:
         status: sucesso
+        mensagem: !anystr
         valor_pago: 160.0
