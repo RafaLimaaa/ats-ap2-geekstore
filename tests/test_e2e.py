@@ -17,6 +17,7 @@ def driver():
     opts.add_argument("--headless")
     opts.add_argument("--no-sandbox")
     opts.add_argument("--disable-dev-shm-usage")
+    opts.binary_location = "/usr/bin/google-chrome"
 
     chrome = webdriver.Chrome(options=opts)
     chrome.implicitly_wait(2)
