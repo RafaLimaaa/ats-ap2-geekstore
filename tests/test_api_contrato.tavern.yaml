@@ -7,7 +7,7 @@ includes:
 stages:
   - name: Listar produtos disponíveis
     request:
-      url: "{tavern.env_vars.BASE_URL}/api/produtos"
+      url: "http://localhost:8000/api/produtos"
       method: GET
     response:
       status_code: 200
@@ -29,7 +29,7 @@ includes:
 stages:
   - name: Compra de teclado sem cupom
     request:
-      url: "{tavern.env_vars.BASE_URL}/api/comprar"
+      url: "http://localhost:8000/api/comprar"
       method: POST
       headers:
         content-type: application/json
@@ -53,7 +53,7 @@ includes:
 stages:
   - name: Compra com cupom de desconto
     request:
-      url: "{tavern.env_vars.BASE_URL}/api/comprar"
+      url: "http://localhost:8000/api/comprar"
       method: POST
       headers:
         content-type: application/json

@@ -44,6 +44,8 @@ jobs:
         run: python seed_db.py
 
       - name: Run Tavern contract tests
+        env:
+          BASE_URL: "http://localhost:8000"
         run: pytest tests/test_api_contrato.tavern.yaml -v
 
       - name: Run E2E tests
