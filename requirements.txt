@@ -6,6 +6,6 @@ pytest>=8.2.0
 pytest-cov>=5.0.0
 pytest-bdd>=7.2.0
 pytest-mock>=3.14.0
-tavern>=2.11.0
+tavern>=3.0.0
 selenium>=4.21.0
 webdriver-manager>=4.0.1
