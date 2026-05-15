@@ -1,0 +1,47 @@
+name: GeekStore CI
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Install Chromium
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y chromium-browser chromium-chromedriver
+
+      - name: Start server
+        run: |
+          uvicorn main:app --host 0.0.0.0 --port 8000 &
+          sleep 5
+
+      - name: Run test suite with coverage
+        run: |
+          pytest tests/ \
+            --ignore=tests/test_e2e.py \
+            --ignore=tests/test_api_contrato.tavern.yaml \
+            --cov=. \
+            --cov-fail-under=90 \
+            -v
+
+      - name: Run Tavern contract tests
+        run: pytest tests/test_api_contrato.tavern.yaml -v
+
+      - name: Run E2E tests
+        run: pytest tests/test_e2e.py -v
