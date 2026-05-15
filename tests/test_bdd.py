@@ -1,7 +1,7 @@
 import pytest
 from pytest_bdd import scenarios, given, when, then, parsers
 
-scenarios("../features/compra.feature")
+scenarios("features/compra.feature")
 
 
 # Fixture de contexto compartilhado — pytest-bdd não tem objeto "context" como o Behave,
